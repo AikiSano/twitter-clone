@@ -7,13 +7,14 @@
             <div class="card">
                 <div class="card-header">{{ __('ユーザ一覧') }}</div>
                     @foreach($users as $user)
-                        <div class="card-body">
-                        <table class="table">
-                            <tbody>
-                                <th scope="row">{{  $user->name  }}</th>
-                            </tbody>
-                        </table>
+                    <div class="card">
+                        <div class="card-header p-3 w-100 d-flex">
+                            <div class="ml-2 d-flex flex-column">
+                                <p class="mb-0">ユーザネーム:{{ $user->name }}</p>
+                                <p class="mb-0">メールアドレス:{{ $user->email }}</p>
+                            </div>
                         </div>
+                    </div>
                 @endforeach
             </div>
         </div>
