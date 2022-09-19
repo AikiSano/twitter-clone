@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
-class HomeController extends Controller
+class HomeController extends Controller 
 {
     /**
      * Create a new controller instance.
@@ -22,7 +23,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $users = user::select('name')->get();
+        
+        return view('home', compact('users'));
+
     }
+
+
 }
