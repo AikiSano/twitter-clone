@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8"> 
             <div class="card">
-                <div class="card-header">{{ __('ユーザ一覧') }} <a class="btn btn-info text-white" href="{{ route('create') }}">新規投稿</a></div>
+                <div class="card-header">{{ __('ユーザ一覧') }} <a class="btn btn-info text-white" href="{{ route('tweet.create') }}">新規投稿</a></div>
                     @foreach($users as $user)
                     <div class="card">
                         <div class="card-header p-3 w-100 d-flex">
