@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="card-header p-3 w-100 d-flex">
                             <div class="ml-2 d-flex flex-column">
-                                <p class="mb-0">ユーザネーム:{{ $user->name }}</p>
+                                <p class="mb-0"><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a> </p>
                                 <p class="mb-0">メールアドレス:{{ $user->email }}</p>
                             </div>
                         </div>

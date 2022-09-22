@@ -31,5 +31,20 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function show($id)
+    {   
+        $user = User::find($id);
+        $params = [
+            'user' => $user,
+        ];
+        return view('users.show', $params);
+    }
+
+
 
 }
