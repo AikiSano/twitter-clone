@@ -24,14 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $users = user::select('name')->get();
-        
+        $users = user::get();
         return view('home', compact('users'));
 
     }
 
     public function create(){
-        return view('create');
+        $users = user::get();
+        return view('tweets.create', compact('users'));
     }
 
 
