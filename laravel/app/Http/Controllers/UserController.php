@@ -91,5 +91,20 @@ class UserController extends Controller
         return view('users.show',['user' => $user]);
     }
 
+    public function tweetDetail($id, User $user, Tweet $tweet)
+    {   
+        $user = User::find($id);
+        $params = [
+            'user' => $user,
+        ];
+
+        $timelines = $tweet->getUserTimeLine($user->id);
+
+
+        return view('users.tweetDetail', $params , [
+            'user'           => $user,
+            'timelines'      => $timelines,
+        ]);
+    }
     
 }

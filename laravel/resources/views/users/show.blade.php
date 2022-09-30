@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            {{ $timeline->text }}
+                        <p class="mb-0"><a href="{{ route('users.tweetDetail', $user->id) }}">{{ $timeline->text }}</a> </p>
                         </div>
                     </div>
                 </div>
