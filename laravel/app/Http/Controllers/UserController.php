@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Tweet;
 
 class UserController extends Controller 
 {
@@ -37,13 +38,26 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($id)
+    public function show($id, User $user, Tweet $tweet, Follower $follower )
     {   
         $user = User::find($id);
         $params = [
             'user' => $user,
         ];
-        return view('users.show', $params);
+
+        $timelines = $tweet->getUserTimeLine($user->id);
+        $tweet_count = $tweet->getTweetCount($user->id);
+        $follow_count = $follower->getFollowCount($user->id);
+        $follower_count = $follower->getFollowerCount($user->id);
+
+
+        return view('users.show', $params , [
+            'user'           => $user,
+            'timelines'      => $timelines,
+            'tweet_count'    => $tweet_count,
+            'follow_count'   => $follow_count,
+            'follower_count' => $follower_count
+        ]);
     }
 
     // フォロー
@@ -77,4 +91,5 @@ class UserController extends Controller
         return view('users.show',['user' => $user]);
     }
 
+    
 }
