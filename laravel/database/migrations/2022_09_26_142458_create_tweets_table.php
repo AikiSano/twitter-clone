@@ -22,7 +22,7 @@ class CreateTweetsTable extends Migration
 
             $table->index('id');
             $table->index('user_id');
-            $table->index('text');
+            
 
             $table->foreign('user_id')
                 ->references('id')

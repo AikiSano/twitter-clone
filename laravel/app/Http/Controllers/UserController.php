@@ -45,66 +45,53 @@ class UserController extends Controller
             'user' => $user,
         ];
 
-        $timelines = $tweet->getUserTimeLine($user->id);
-        $tweet_count = $tweet->getTweetCount($user->id);
-        $follow_count = $follower->getFollowCount($user->id);
-        $follower_count = $follower->getFollowerCount($user->id);
+        $timeLines = $tweet->getUserTimeLine($user->id);
+        $tweetCount = $tweet->getTweetCount($user->id);
+        $followCount = $follower->getFollowCount($user->id);
+        $followerCount = $follower->getFollowerCount($user->id);
 
 
         return view('users.show', $params , [
             'user'           => $user,
-            'timelines'      => $timelines,
-            'tweet_count'    => $tweet_count,
-            'follow_count'   => $follow_count,
-            'follower_count' => $follower_count
+            'timelines'      => $timeLines,
+            'tweet_count'    => $tweetCount,
+            'follow_count'   => $followCount,
+            'follower_count' => $followerCount
         ]);
     }
 
     // フォロー
-    public function follow(User $user)
+    public function follow(User $user , $id)
     {
-
+        $user = User::find($id); 
         $follower = auth()->user();
         // フォローしているか
-        $is_following = $follower->isFollowing($user->id);
-        if(!$is_following) {
-            // フォローしていなければフォローする
-            $follower->follow($user->id);
-            return back();
+        $isFollowing = $follower->isFollowing($user->id);
+        if(!$isFollowing) {
+        // フォローしていなければフォローする
+        $follower->follow($user->id);
+        return back();
         }
     }
 
     // フォロー解除
-    public function unfollow(User $user)
+    public function unfollow(User $user , $id)
     {   
+        $user = User::find($id); 
         $follower = auth()->user();
         // フォローしているか
-        $is_following = $follower->isFollowing($user->id);
-        if($is_following) {
-            // フォローしていればフォローを解除する
-            $follower->unfollow($user->id);
-            return back();
+        $isFollowing = $follower->isFollowing($user->id);
+        if($isFollowing) {
+        // フォローしていればフォローを解除する
+        $follower->unfollow($user->id);
+        return back();
         }
     }
 
-    public function edit(User $user){
-        return view('users.show',['user' => $user]);
-    }
+    public function edit(User $user , $id){
 
-    public function tweetDetail($id, User $user, Tweet $tweet)
-    {   
         $user = User::find($id);
-        $params = [
-            'user' => $user,
-        ];
-
-        $timelines = $tweet->getUserTimeLine($user->id);
-
-
-        return view('users.tweetDetail', $params , [
-            'user'           => $user,
-            'timelines'      => $timelines,
-        ]);
+        return view('users.show',['user' => $user]);
     }
     
 }
