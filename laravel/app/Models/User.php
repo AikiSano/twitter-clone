@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,9 +20,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'screen_name',
         'name',
+        'profile_image',
         'email',
-        'password',
+        'password'
     ];
 
     /**
@@ -105,4 +109,29 @@ class User extends Authenticatable
         return $this->followers()->where('following_id', $user_id)->exists();
     }
 
+    /**
+     * ユーザのプロフィールを編集する
+     * 
+     *
+     * @param array $params
+     * @return void
+     */
+    public function updateProfile(Array $params) : void
+    {
+        if (isset($params['profile_image'])) {
+            $fileName = $params['profile_image']->store('public/profile_image/');
+            $this->update([
+                    'screen_name'   => $params['screen_name'],
+                    'name'          => $params['name'],
+                    'profile_image' => basename($fileName),
+                    'email'         => $params['email'],
+                ]);
+        } else {
+            $this->update([
+                    'screen_name'   => $params['screen_name'],
+                    'name'          => $params['name'],
+                    'email'         => $params['email'],
+                ]); 
+        }
+    }
 }

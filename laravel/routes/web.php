@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TweetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,6 @@ Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->
 Route::post('/user/{id}/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
 Route::delete('/user/{id}/unfollow', [App\Http\Controllers\UserController::class, 'unfollow'])->name('unfollow');
 Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
-Route::get('/user/{id}/tweets/detail', [App\Http\Controllers\TweetController::class, 'index'])->name('users.tweetDetail');
+Route::PUT('/user/{id}/update', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+
+Route::resource('tweets',TweetController::class)->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follower;
 use App\Models\Tweet;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller 
 {
@@ -91,7 +93,24 @@ class UserController extends Controller
     public function edit(User $user , $id){
 
         $user = User::find($id);
-        return view('users.show',['user' => $user]);
+        return view('users.edit',['user' => $user]);
+    }
+
+    public function update(Request $request)
+    {   
+        // $user = new User();
+        $user = auth()->user();        
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'screen_name'   => ['required', 'string', 'max:50',], 
+            'name'          => ['required', 'string', 'max:255'],
+            'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'email'         => ['required', 'string', 'email', 'max:255', ],
+        ]);
+        $validator->validate();
+        $user->updateProfile($data);
+        
+        return redirect()->route('users.show' , $user->id);
     }
     
 }
