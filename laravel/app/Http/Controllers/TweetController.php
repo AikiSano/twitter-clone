@@ -55,4 +55,13 @@ class TweetController extends Controller
 
         return redirect('tweets');
     }
+
+    public function destroy(Tweet $tweet)
+    {
+        $user = auth()->user();
+        $tweet->tweetDestroy($user->id, $tweet->id);
+
+        return redirect('tweets');
+    }
+
 }
