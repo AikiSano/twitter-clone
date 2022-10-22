@@ -20,6 +20,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://use.fontawesome.com/releases/v6.2.0/css/all.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -54,6 +57,13 @@
                                 </li>
                             @endif
                         @else
+                                <li class="nav-item mr-5">
+                                    <a href="{{ route('tweets.create') }}" class="btn btn-md btn-primary">ツイート</a>
+                                </li>
+
+                                <li class="nav-item mr-5">
+                                    <a href="{{ route('tweets.index') }}" class="btn btn-md btn-primary">ツイート一覧</a>
+                                </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -61,8 +71,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
