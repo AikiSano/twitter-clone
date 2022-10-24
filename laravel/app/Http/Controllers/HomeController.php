@@ -26,13 +26,5 @@ class HomeController extends Controller
     {   
         $users = User::get();
         return view('home', compact('users'));
-
     }
-
-    public function create(){
-        $users = User::get();
-        return view('tweets.create', compact('users'));
-    }
-
-
 }

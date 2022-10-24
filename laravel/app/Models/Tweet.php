@@ -28,11 +28,6 @@ class Tweet extends Model
         return $this->hasMany(Favorite::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
     public function getUserTimeLine(Int $user_id)
     {
         return $this->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
@@ -46,7 +41,6 @@ class Tweet extends Model
     // 一覧画面
     public function getTimeLines(Int $user_id, Array $follow_ids)
     {   
-        
         // 自身とフォローしているユーザIDを結合する
         $follow_ids[] = $user_id;
         return $this->whereIn('user_id', $follow_ids)->orderBy('created_at', 'DESC')->get();
@@ -58,13 +52,17 @@ class Tweet extends Model
         return $this->with('user')->where('id', $tweet_id)->first();
     }
 
-    //ツイート内容保存
+    // ツイート内容保存
     public function tweetStore(Int $user_id, Array $data)
     {
         $this->user_id = $user_id;
         $this->text = $data['text'];
         $this->save();
-
-        return;
+    }
+    
+    // ツイート削除
+    public function tweetDestroy(Int $user_id, Int $tweet_id)
+    {
+        return $this->where('user_id', $user_id)->where('id', $tweet_id)->delete();
     }
 }

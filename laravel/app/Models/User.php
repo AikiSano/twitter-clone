@@ -88,7 +88,6 @@ class User extends Authenticatable
     /**
      * ユーザーがフォローしているか判定
      * where()でfollowed_idの中に、引数として渡された$userがいるかどうかを判定
-     *
      * @param int $user_id ユーザID
      * @return bool 
      */
@@ -100,7 +99,6 @@ class User extends Authenticatable
     /**
      * ユーザーがフォローされているか判定
      * where()でfollowing_idの中に、引数として渡された$userがいるかどうかを判定
-     *
      * @param int $user_id ユーザID
      * @return bool 
      */
@@ -111,8 +109,6 @@ class User extends Authenticatable
 
     /**
      * ユーザのプロフィールを編集する
-     * 
-     *
      * @param array $params
      * @return void
      */
