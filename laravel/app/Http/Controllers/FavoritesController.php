@@ -7,26 +7,37 @@ use App\Models\Favorite;
 
 class FavoritesController extends Controller
 {
+    /**
+     * ツイートいいね
+     * @param $request $favorite
+     * @return @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, Favorite $favorite)
     {   
         $user = auth()->user();
-        $tweet_id = $request->tweet_id;
-        $is_favorite = $favorite->isFavorite($user->id, $tweet_id);
+        $tweetId = $request->tweet_id;
+        $isFavorite = $favorite->isFavorite($user->id, $tweetId);
 
-        if(!$is_favorite) {
-            $favorite->storeFavorite($user->id, $tweet_id);
+        if(!$isFavorite) {
+            $favorite->storeFavorite($user->id, $tweetId);
             return back();
         }
         return back();
     }
+
+    /**
+     * ツイートいいね取り消す
+     * @param $favorite
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Favorite $favorite)
     {
-        $user_id = $favorite->user_id;
-        $tweet_id = $favorite->tweet_id;
-        $favorite_id = $favorite->id;
-        $is_favorite = $favorite->isFavorite($user_id, $tweet_id);
-        if($is_favorite) {
-            $favorite->destroyFavorite($favorite_id);
+        $userId = $favorite->user_id;
+        $tweetId = $favorite->tweet_id;
+        $favoriteId = $favorite->id;
+        $isFavorite = $favorite->isFavorite($userId, $tweetId);
+        if($isFavorite) {
+            $favorite->destroyFavorite($favoriteId);
             return back();
         }
         return back();

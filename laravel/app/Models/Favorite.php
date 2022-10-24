@@ -12,8 +12,6 @@ class Favorite extends Model
     
     /**
      * いいねしているかどうかの判定処理
-     * 
-     *
      * @param int $user_id , $tweet_id
      * @return bool 
      */
@@ -27,8 +25,6 @@ class Favorite extends Model
         $this->user_id = $user_id;
         $this->tweet_id = $tweet_id;
         $this->save();
-
-        return;
     }
 
     public function destroyFavorite(Int $favorite_id)

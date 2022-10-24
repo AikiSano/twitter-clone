@@ -58,15 +58,11 @@ class Tweet extends Model
         $this->user_id = $user_id;
         $this->text = $data['text'];
         $this->save();
-
-        return;
     }
+    
     // ツイート削除
     public function tweetDestroy(Int $user_id, Int $tweet_id)
     {
         return $this->where('user_id', $user_id)->where('id', $tweet_id)->delete();
     }
-
-
-
 }
