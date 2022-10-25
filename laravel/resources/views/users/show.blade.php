@@ -87,7 +87,7 @@
 
                     <div class="card-footer py-1 d-flex justify-content-end bg-white">                           
                         <div class="d-flex align-items-center">
-                            @if (!in_array($user->id, array_column($timeline->favorites->toArray(), 'user_id'), TRUE))
+                            @if (!in_array(Auth::user()->id, array_column($timeline->favorites->toArray(), 'user_id'), TRUE))
                                 <form method="POST" action="{{ route('favorites.store') }}" class="mb-0">
                                     @csrf
 
@@ -95,7 +95,7 @@
                                     <button type="submit" class="btn p-0 border-0 text-primary"><i class="far fa-heart fa-fw"></i></button>
                                 </form>
                             @else
-                                <form method="POST" action="{{ route('favorites.destroy' , array_column($timeline->favorites->toArray(), 'id', 'user_id'),[$user->id]) }}" class="mb-0">
+                                <form method="POST" action="{{ route('favorites.destroy' , array_column($timeline->favorites->toArray(), 'id', 'user_id'),[Auth::user()->id]) }}" class="mb-0">
                                     @csrf
                                     @method('DELETE')
 
